@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NS Web & Media | Website Development & Digital Services</title>
+  <meta name="description" content="NS Web & Media provides website development, social media content, SEO, Google Business Profile services, e-commerce solutions and digital support for businesses.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical Placeholder (Replace with your actual domain upon deployment) -->
+  <link rel="canonical" href="https://www.nswebmedia.com/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.nswebmedia.com/">
+  <meta property="og:title" content="NS Web & Media | Website Development & Digital Services">
+  <meta property="og:description" content="Digital experiences built to make your business look better and work smarter. Web development, content, and visibility for growing brands.">
+  <meta property="og:image" content="assets/logo.png">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NS Web & Media | Website Development & Digital Services">
+  <meta name="twitter:description" content="Digital experiences built to make your business look better and work smarter.">
+  <meta name="twitter:image" content="assets/logo.png">
+
+  <!-- Favicon Fallback Icon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans for high-end editorial clarity -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#0A0A0A',
+              dark: '#121212',
+              card: '#18181B',
+              white: '#FFFFFF',
+              offwhite: '#F9FAFB',
+              surface: '#F4F5F7',
+              lime: '#A3E635',       /* Fresh sophisticated NS Lime Green */
+              limelight: '#BEF264',
+              limedark: '#15803D',
+              forest: '#14532D',
+              border: '#E4E4E7',
+              borderdark: '#27272A',
+              muted: '#71717A',
+              text: '#09090B'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace']
+          },
+          letterSpacing: {
+            tighter: '-0.04em',
+            tight: '-0.02em',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       NS WEB & MEDIA - DESIGN SYSTEM VARIABLES
+       ========================================================================== */
+    :root {
+      --color-black: #0A0A0A;
+      --color-white: #FFFFFF;
+      --color-bg-warm: #FAFAFA;
+      --color-green: #A3E635;
+      --color-green-light: #BEF264;
+      --color-green-dark: #15803D;
+      --color-text: #0A0A0A;
+      --color-muted: #64748B;
+      --color-border: #E2E8F0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--color-text);
+      background-color: #FFFFFF;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Glassmorphism */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(228, 228, 231, 0.9);
+    }
+
+    .glass-card-dark {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Active Navigation Pill State */
+    .nav-item {
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-item:hover {
+      color: #0A0A0A;
+      background-color: #F4F4F5;
+    }
+    .nav-item.active {
+      color: #0A0A0A;
+      background-color: #F4F4F5;
+      font-weight: 600;
+    }
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 2px;
+      background-color: #A3E635;
+      border-radius: 9999px;
+    }
+
+    /* Category Filter Tab Active & Hover Styles */
+    .filter-btn {
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+    .filter-btn:not(.active):hover {
+      color: #0A0A0A;
+      background-color: #F4F4F5;
+      border-color: #D4D4D8;
+    }
+    .filter-btn.active {
+      background-color: #0A0A0A !important;
+      color: #FFFFFF !important;
+      border-color: #0A0A0A !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+    .filter-btn.active:hover {
+      background-color: #171717 !important;
+      color: #FFFFFF !important;
+    }
+
+    /* Smooth Scroll-Triggered Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Smooth focus rings */
+    *:focus-visible {
+      outline: 2px solid #A3E635;
+      outline-offset: 3px;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAFAFA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D4D4D8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A1A1AA;
+    }
+
+    /* 16:9 aspect ratio standard */
+    .aspect-16-9 {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Selection highlight */
+    ::selection {
+      background-color: #A3E635;
+      color: #0A0A0A;
+    }
+
+    /* Accessibility reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "NS Web & Media",
+    "image": "assets/logo.png",
+    "@id": "https://www.nswebmedia.com/#studio",
+    "url": "https://www.nswebmedia.com/",
+    "telephone": "+91-7597402104",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Digital Agency",
+      "addressCountry": "India"
+    },
+    "description": "Full-Service Digital Growth Agency & Web Studio specializing in website development, social media content creation, Google Business Profile optimization, and e-commerce solutions."
+  }
+  </script>
+</head>
+
+<body class="bg-white text-brand-black flex flex-col min-h-screen selection:bg-brand-lime selection:text-brand-black">
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION (Full-Width Edge-to-Edge with Solid Green Bottom Border)
+       ========================================================================== -->
+  <header id="site-header" class="sticky top-0 left-0 right-0 z-40 w-full bg-white/95 backdrop-blur-md border-b-2 border-brand-lime transition-all duration-200">
+    <div class="w-full px-4 sm:px-6 lg:px-10">
+      <div class="flex items-center justify-between h-16 sm:h-18" id="nav-container">
+        
+        <!-- Left: Logo image with fallback styling -->
+        <a href="#hero" class="group flex items-center gap-3" aria-label="NS Web & Media Homepage">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-brand-border bg-brand-black text-white flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-sm">
+            <img 
+              src="file:///C:/Users/navee/Downloads/NS%20Web%20&%20Media/Profile.png" 
+              alt="NS Web & Media Logo" 
+              class="w-full h-full object-cover"
+              onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'font-mono font-black text-brand-lime text-base tracking-tighter\'>NS</span>';"
+            >
+          </div>
+          <span class="font-bold tracking-tight text-lg text-brand-black group-hover:text-neutral-900 flex items-center gap-1.5">
+            NS <span class="font-medium text-brand-muted text-sm tracking-normal">WEB & MEDIA</span>
+          </span>
+        </a>
+
+        <!-- Center: Desktop Navigation with Active & Hover Effects -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-1.5 text-sm font-medium text-brand-muted" aria-label="Main Navigation" id="desktop-nav">
+          <a href="#hero" class="nav-item active px-3.5 py-2 rounded-xl">Home</a>
+          <a href="#services" class="nav-item px-3.5 py-2 rounded-xl">Services</a>
+          <a href="#work" class="nav-item px-3.5 py-2 rounded-xl">Work</a>
+          <a href="#contact" class="nav-item px-3.5 py-2 rounded-xl">Contact</a>
+        </nav>
+
+        <!-- Right: CTA Button & Mobile Hamburger Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="https://wa.me/917597402104?text=Hi%20NS%20Web%20%26%20Media,%20I'd%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-xl bg-brand-black text-white text-xs sm:text-sm font-semibold hover:bg-neutral-800 transition-all duration-200 border border-transparent hover:border-brand-lime/50 shadow-xs active:scale-95">
+            Start a Project
+            <svg class="w-3.5 h-3.5 ml-1.5 text-brand-lime transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+
+          <!-- Mobile Hamburger Button -->
+          <button 
+            id="mobile-menu-btn" 
+            type="button" 
+            class="md:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-brand-black hover:bg-neutral-100 border border-brand-border focus:outline-none transition-colors" 
+            aria-expanded="false" 
+            aria-label="Toggle Navigation Menu"
+          >
+            <svg id="hamburger-icon" class="w-5 h-5 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="close-icon" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pb-4 pt-2 border-t border-brand-border/60 space-y-1 transition-all">
+        <a href="#hero" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-semibold text-brand-black bg-neutral-100 transition-colors">Home</a>
+        <a href="#services" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-brand-muted hover:text-brand-black hover:bg-neutral-50 transition-colors">Services</a>
+        <a href="#work" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-brand-muted hover:text-brand-black hover:bg-neutral-50 transition-colors">Work</a>
+        <a href="#contact" class="mobile-nav-link block px-4 py-2.5 rounded-xl text-sm font-medium text-brand-muted hover:text-brand-black hover:bg-neutral-50 transition-colors">Contact</a>
+        <div class="pt-2 mt-2 border-t border-brand-border">
+          <a href="https://wa.me/917597402104" target="_blank" rel="noopener noreferrer" class="mobile-nav-link flex items-center justify-center w-full py-2.5 rounded-xl bg-brand-black text-white text-xs font-semibold hover:bg-neutral-800 transition-colors">
+            WhatsApp Inquiry (+91 7597402104)
+            <span class="ml-2 w-2 h-2 rounded-full bg-brand-lime"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION (Balanced Line-Height + Clean Top-Aligned Media Slider)
+       ========================================================================== -->
+  <main class="flex-grow">
+    <section id="hero" class="relative overflow-hidden py-10 sm:py-14 lg:py-16 border-b border-brand-border/60 flex flex-col justify-center">
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        
+        <!-- 2-Column Hero Structure: Left Copy / Right Slider (Top-Aligned) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+          
+          <div class="lg:col-span-7">
+            <!-- Adjusted Main Statement with Relaxed Line-Height and Green Highlights -->
+            <h1 class="text-2xl sm:text-4xl lg:text-[2.65rem] xl:text-[2.95rem] font-extrabold tracking-tighter text-brand-black leading-snug sm:leading-[1.26] mb-3 sm:mb-4">
+              Digital experiences jo aapke brand ko banayein <span class="text-lime-600 font-black relative whitespace-nowrap">visually solid<span class="absolute left-0 bottom-0.5 w-full h-1.5 bg-brand-lime/30 -z-10 rounded-sm"></span></span> aur grow karwayein <span class="text-lime-600 font-black">smarter</span>.
+            </h1>
+
+            <!-- Supporting Text -->
+            <p class="text-sm sm:text-base text-brand-muted font-normal leading-relaxed max-w-xl mb-5">
+              High-converting websites, dynamic social creatives aur local Google dominance — targeted directly to convert everyday traffic into <span class="text-neutral-900 font-semibold">genuine paying clients</span>.
+            </p>
+
+            <!-- Action buttons with WhatsApp integration -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-5">
+              <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-black text-white text-xs sm:text-sm font-semibold hover:bg-neutral-800 transition-all duration-200 shadow-sm active:scale-95 group">
+                Start a Project
+                <svg class="w-3.5 h-3.5 ml-2 text-brand-lime transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </a>
+
+              <a href="https://wa.me/917597402104?text=Hi%20NS%20Web%20%26%20Media,%20I'd%20like%20to%20discuss%20a%20new%20project!" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-white border border-brand-border text-brand-black text-xs sm:text-sm font-semibold hover:bg-neutral-50 hover:border-neutral-400 transition-all duration-200 active:scale-95 shadow-2xs">
+                <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/>
+                </svg>
+                Chat on WhatsApp
+              </a>
+            </div>
+
+            <!-- Bullet trust markers -->
+            <div class="grid grid-cols-3 gap-2 pt-3 border-t border-brand-border text-[11px] sm:text-xs font-medium text-brand-muted">
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-lime"></span>
+                <span>Fast Speeds</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-lime"></span>
+                <span>Direct Support</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-lime"></span>
+                <span>100% Asset Ownership</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Right: Interactive Visual Image Slider -->
+          <div class="lg:col-span-5 w-full">
+            <div class="relative w-full rounded-2xl overflow-hidden bg-brand-dark border border-neutral-800 shadow-xl p-1.5 sm:p-2 group">
+              
+              <!-- Slider Wrapper -->
+              <div class="relative w-full aspect-[16/10] sm:aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900" id="hero-slider">
+                
+                <!-- Slide 1: Web Development -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100">
+                  <img 
+                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80" 
+                    alt="High-Performance Website Development"
+                    class="w-full h-full object-cover"
+                  >
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="px-2 py-0.5 rounded bg-brand-lime text-brand-black text-[9px] font-mono font-bold w-max mb-1 uppercase">Modern Engineering</span>
+                    <h3 class="text-base sm:text-lg font-bold">Fast & Responsive Websites</h3>
+                    <p class="text-[11px] sm:text-xs text-neutral-300">Clean architecture, lightning load speeds and smooth UX.</p>
+                  </div>
+                </div>
+
+                <!-- Slide 2: Social Media Branding -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none">
+                  <img 
+                    src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1000&q=80" 
+                    alt="Social Media Content and Creatives"
+                    class="w-full h-full object-cover"
+                  >
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="px-2 py-0.5 rounded bg-brand-lime text-brand-black text-[9px] font-mono font-bold w-max mb-1 uppercase">Brand Creatives</span>
+                    <h3 class="text-base sm:text-lg font-bold">Social Media Content Creation</h3>
+                    <p class="text-[11px] sm:text-xs text-neutral-300">High-converting posts, carousels & reel storyboards.</p>
+                  </div>
+                </div>
+
+                <!-- Slide 3: E-commerce Store -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none">
+                  <img 
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80" 
+                    alt="Shopify and E-Commerce Conversion Optimization"
+                    class="w-full h-full object-cover"
+                  >
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="px-2 py-0.5 rounded bg-brand-lime text-brand-black text-[9px] font-mono font-bold w-max mb-1 uppercase">E-Commerce</span>
+                    <h3 class="text-base sm:text-lg font-bold">Shopify & Online Stores</h3>
+                    <p class="text-[11px] sm:text-xs text-neutral-300">Streamlined checkouts built around customer conversions.</p>
+                  </div>
+                </div>
+
+                <!-- Slide 4: Google Local Business -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none">
+                  <img 
+                    src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1000&q=80" 
+                    alt="Google Business Profile and Local SEO"
+                    class="w-full h-full object-cover"
+                  >
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
+                    <span class="px-2 py-0.5 rounded bg-brand-lime text-brand-black text-[9px] font-mono font-bold w-max mb-1 uppercase">Local Reach</span>
+                    <h3 class="text-base sm:text-lg font-bold">Google Business Profile / Maps</h3>
+                    <p class="text-[11px] sm:text-xs text-neutral-300">Dominating local search queries and nearby client calls.</p>
+                  </div>
+                </div>
+
+                <!-- Slider Arrows -->
+                <button 
+                  id="slider-prev-btn" 
+                  type="button" 
+                  class="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-black/60 text-white hover:bg-brand-lime hover:text-black backdrop-blur-sm transition-all shadow-xs focus:outline-none"
+                  aria-label="Previous Slide"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <button 
+                  id="slider-next-btn" 
+                  type="button" 
+                  class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-black/60 text-white hover:bg-brand-lime hover:text-black backdrop-blur-sm transition-all shadow-xs focus:outline-none"
+                  aria-label="Next Slide"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Slider Dots & Indicator -->
+              <div class="flex items-center justify-between px-2 pt-2 text-xs">
+                <span class="text-neutral-400 font-mono text-[10px]" id="slider-indicator">01 / 04</span>
+                <div class="flex items-center gap-1.5" id="slider-dots">
+                  <button class="w-4 h-1 rounded-full bg-brand-lime transition-all" data-slide="0"></button>
+                  <button class="w-1.5 h-1 rounded-full bg-neutral-700 transition-all" data-slide="1"></button>
+                  <button class="w-1.5 h-1 rounded-full bg-neutral-700 transition-all" data-slide="2"></button>
+                  <button class="w-1.5 h-1 rounded-full bg-neutral-700 transition-all" data-slide="3"></button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tech Stack & Platform Logos Strip -->
+        <div class="mt-6 pt-4 border-t border-brand-border">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-brand-muted font-semibold">Tech & Platforms</span>
+            <div class="flex flex-wrap items-center gap-4 sm:gap-7 text-xs font-semibold text-brand-black">
+              
+              <!-- Shopify -->
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#95BF47]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.8 6.2c-.1-.1-.3-.1-.4 0l-1.3.4c-.4-.7-1.1-2.1-1.3-2.5-.2-.5-.7-.8-1.2-.8-.1 0-.3 0-.4.1-.3-.6-.8-1-1.5-1-1.1 0-1.7.9-2.1 1.7-.6 1.3-1.1 3-1.3 3.6l-1.4.4c-.5.1-.7.7-.4 1.1l2.4 11.2c.1.4.4.7.9.7h8.8c.5 0 .9-.3.9-.7l2.4-12.7c.1-.5-.2-1-.7-1.2zm-4.3-.2l-.9.3c.3-1 .8-2 1.4-2.5.3.4.4 1.3-.5 2.2zm-2.4.7l-1 .3c.3-.9.9-2.3 1.7-2.7.3.7.1 1.7-.7 2.4z"/>
+                </svg>
+                <span>Shopify</span>
+              </div>
+
+              <!-- WordPress -->
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#21759B]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.486 2 2 6.486 2 12c0 4.198 2.587 7.79 6.262 9.27L4.79 9.877c.725-.037 1.378-.112 1.378-.112.56-.075.486-.897-.074-.86 0 0-1.683.187-2.766.187-.225 0-.486-.037-.749-.074C4.249 10.323 5.485 12 7.02 12c.074 0 .15-.038.225-.075l3.22-9.33A9.97 9.97 0 0 1 12 2zm7.424 4.575c.187.636.262 1.31.262 2.058 0 1.908-.673 4.078-1.72 6.77L15.3 7.085c.673-.037 1.272-.112 1.272-.112.562-.075.488-.897-.074-.86 0 0-1.684.187-2.768.187-.15 0-.337-.038-.524-.038.935-1.572 2.247-2.882 3.844-3.722.56.636 1.01 1.348 1.374 2.124zM12 22a9.92 9.92 0 0 1-5.166-1.423l5.09-14.78 5.242 14.37A9.957 9.957 0 0 1 12 22z"/>
+                </svg>
+                <span>WordPress</span>
+              </div>
+
+              <!-- Next.js / React -->
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-black" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm4.8 14.6l-5.6-7.8v7.8H9.6V7.4h1.6l5.6 7.8V7.4h1.6v9.2z"/>
+                </svg>
+                <span>Next.js</span>
+              </div>
+
+              <!-- Google Business Profile -->
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+                </svg>
+                <span>Google Business</span>
+              </div>
+
+              <!-- Meta -->
+              <div class="flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#E4405F]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.79-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span>Meta</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SERVICES SECTION (Minimal, Clean & Scroll-Animated)
+         ========================================================================== -->
+    <section id="services" class="py-16 sm:py-24 bg-brand-offwhite border-b border-brand-border reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div class="max-w-xl">
+            <span class="inline-block text-xs font-mono uppercase tracking-widest text-brand-muted mb-3 font-semibold">Capabilities</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tighter text-brand-black">
+              Everything your business needs online.
+            </h2>
+          </div>
+          <p class="text-brand-muted text-base max-w-md">
+            Clean technical execution paired with direct, pragmatic marketing. No unnecessary bloated retainers or complicated workflows.
+          </p>
+        </div>
+
+        <!-- Asymmetric, non-generic service cards grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <!-- Service 01: Website Development -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">01</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Website Development</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Professional, responsive and performance-focused business websites engineered for speed, clean code, and intuitive user experiences.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Next.js, Astro & Modern Web</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 02: E-commerce Development -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">02</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">E-commerce Stores</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Shopify and custom online stores designed systematically around product discovery, seamless checkout flow, and maximum conversion rates.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Shopify, WooCommerce, Custom</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 03: Landing Page Design -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">03</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Landing Page Design</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Focused, hyper-converting landing pages tailored for ad campaigns, product releases, webinar funnels, and high-value lead acquisition.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Conversion Rate Optimization</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 04: Social Media Content -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">04</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Social Media Content</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Branded posts, carousels, reel storyboarding, and digital creatives that give your business a coherent, reputable visual identity.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Instagram, LinkedIn, Visuals</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 05: Google Business Profile -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">05</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Google Business Profile</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Complete GBP optimization, local ranking enhancements, reviews strategy, and geo-targeted setup to drive genuine nearby foot traffic and calls.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Local Map Pack & Citations</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 06: SEO -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">06</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Search Engine Optimization</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                On-page architecture, technical site health audits, Core Web Vitals tuning, and foundational keyword positioning that builds sustainable organic reach.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Technical & Semantic SEO</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 07: Website Maintenance -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">07</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Website Maintenance</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Ongoing updates, security patches, plugin management, content adjustments, speed monitoring, and dependable technical backup.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Continuous Reliability</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+          <!-- Service 08: Creative & Digital Solutions -->
+          <div class="group bg-white p-7 rounded-2xl border border-brand-border hover:border-brand-lime/80 hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="font-mono text-xs font-bold text-neutral-400 group-hover:text-brand-black transition-colors">08</span>
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:text-brand-black transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold tracking-tight text-brand-black mb-3">Creative & Digital Solutions</h3>
+              <p class="text-sm text-brand-muted leading-relaxed">
+                Custom web tools, banner sets, vector brand kits, newsletter design, and tailored digital deliverables for growing organizations.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-medium text-brand-muted group-hover:text-brand-black">
+              <span>Bespoke Visual Execution</span>
+              <span class="text-brand-lime group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PORTFOLIO / SELECTED WORK
+         ========================================================================== -->
+    <section id="work" class="py-16 sm:py-24 bg-white border-b border-brand-border reveal">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Heading & Descriptive Intro with Category Filters Placed DIRECTLY BELOW -->
+        <div class="flex flex-col items-start mb-12 gap-6">
+          <div class="max-w-2xl">
+            <span class="inline-block text-xs font-mono uppercase tracking-widest text-brand-muted mb-2 font-semibold">Portfolio</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tighter text-brand-black">
+              Selected Work
+            </h2>
+            <p class="text-brand-muted text-base mt-2">
+              A selection of websites, content and digital projects we've worked on. Click any project to open the interactive gallery.
+            </p>
+          </div>
+
+          <!-- Glassmorphic Category Filter Tabs placed DIRECTLY BELOW heading & intro -->
+          <div class="w-full flex flex-wrap items-center gap-2 p-1.5 rounded-2xl glass-pill max-w-full overflow-x-auto border border-neutral-200" id="portfolio-filters" role="tablist" aria-label="Portfolio Category Filter">
+            <button class="filter-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl border border-transparent" data-category="all" role="tab" aria-selected="true">
+              All
+            </button>
+            <button class="filter-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-xl text-brand-muted border border-transparent" data-category="Websites" role="tab" aria-selected="false">
+              Websites
+            </button>
+            <button class="filter-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-xl text-brand-muted border border-transparent" data-category="Social Media" role="tab" aria-selected="false">
+              Social Media
+            </button>
+            <button class="filter-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-xl text-brand-muted border border-transparent" data-category="E-commerce" role="tab" aria-selected="false">
+              E-commerce
+            </button>
+            <button class="filter-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-xl text-brand-muted border border-transparent" data-category="Google Business" role="tab" aria-selected="false">
+              Google Business
+            </button>
+            <button class="filter-btn px-4 py-2 text-xs sm:text-sm font-medium rounded-xl text-brand-muted border border-transparent" data-category="Creative" role="tab" aria-selected="false">
+              Creative
+            </button>
+          </div>
+        </div>
+
+        <!-- Portfolio Projects Grid (Renders clean 16:9 empty state placeholders) -->
+        <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <!-- Rendered via JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CALL TO ACTION SECTION
+         ========================================================================== -->
+    <section class="py-20 sm:py-28 bg-brand-black text-white relative overflow-hidden border-b border-neutral-800">
+      
+      <!-- Subtle typographic watermark detail -->
+      <div class="absolute -right-12 -bottom-16 text-neutral-800/20 font-black text-9xl tracking-tighter select-none pointer-events-none hidden lg:block font-mono">
+        NS//
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-brand-lime text-xs font-mono font-medium mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-lime"></span>
+            Let's build something exceptional together
+          </div>
+
+          <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tighter text-white leading-tight mb-6">
+            Have a project in mind?
+          </h2>
+
+          <p class="text-lg sm:text-xl text-neutral-300 leading-relaxed mb-10 max-w-2xl">
+            Bataiye aap kya create karna chahte hain. We'll turn your concept into a fast, revenue-ready digital asset.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a href="https://wa.me/917597402104?text=Hi%20NS%20Web%20%26%20Media,%20let's%20discuss%20a%20project!" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-lime text-brand-black text-base font-bold hover:bg-brand-limelight transition-all duration-200 active:scale-95 shadow-md">
+              Let's Talk
+              <svg class="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </a>
+            
+            <a href="https://wa.me/917597402104?text=Hi%20NS%20Web%20%26%20Media,%20I'd%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-neutral-900 border border-neutral-700 text-white text-base font-medium hover:bg-neutral-800 transition-all duration-200">
+              <svg class="w-5 h-5 mr-2 text-brand-lime" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/>
+              </svg>
+              Direct WhatsApp: +91 7597402104
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CONTACT SECTION (WhatsApp Direct Inquiry Form)
+         ========================================================================== -->
+    <section id="contact" class="py-20 sm:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          
+          <!-- Contact Details Left Column -->
+          <div class="lg:col-span-5">
+            <span class="inline-block text-xs font-mono uppercase tracking-widest text-brand-muted mb-2 font-semibold">Start the Conversation</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tighter text-brand-black leading-tight mb-6">
+              Tell us about your project.
+            </h2>
+            <p class="text-brand-muted text-base mb-8">
+              Fill out this quick form. Upon submission, it will immediately open WhatsApp with all your filled project specs sent straight to us.
+            </p>
+
+            <div class="space-y-6">
+              
+              <!-- Direct WhatsApp / Phone Item -->
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black flex-shrink-0 mt-1">
+                  <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-mono uppercase text-brand-muted font-semibold">Phone & WhatsApp</p>
+                  <a href="https://wa.me/917597402104" target="_blank" rel="noopener noreferrer" class="text-base font-bold text-brand-black hover:text-brand-limedark transition-colors">
+                    +91 7597402104
+                  </a>
+                  <p class="text-xs text-neutral-400 mt-0.5">Call or text anytime for instant discussion</p>
+                </div>
+              </div>
+
+              <!-- Instagram Item -->
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black flex-shrink-0 mt-1">
+                  <svg class="w-5 h-5 text-[#E4405F]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.79-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-mono uppercase text-brand-muted font-semibold">Instagram</p>
+                  <a href="https://instagram.com/nswebandmedia" target="_blank" rel="noopener noreferrer" class="text-base font-bold text-brand-black hover:text-brand-limedark transition-colors">
+                    @nswebandmedia
+                  </a>
+                  <p class="text-xs text-neutral-400 mt-0.5">Follow our latest visual work & stories</p>
+                </div>
+              </div>
+
+              <!-- Agency Working Hours -->
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-brand-black flex-shrink-0 mt-1">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-mono uppercase text-brand-muted font-semibold">Availability</p>
+                  <p class="text-base font-bold text-brand-black">Mon – Sat: 9:30 AM – 7:30 PM</p>
+                  <p class="text-xs text-neutral-400 mt-0.5">Quick turnaround and dedicated communication</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Contact Form (Directly forwards via WhatsApp) -->
+          <div class="lg:col-span-7">
+            <form id="contact-form" class="bg-brand-offwhite p-6 sm:p-10 rounded-3xl border border-brand-border space-y-6">
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Name (Required) -->
+                <div>
+                  <label for="contact-name" class="block text-xs font-mono font-bold uppercase tracking-wider text-brand-black mb-2">
+                    Your Name <span class="text-brand-forest">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="contact-name" 
+                    name="name" 
+                    required 
+                    placeholder="e.g. Rahul Sharma" 
+                    class="w-full px-4 py-3.5 rounded-xl bg-white border border-brand-border text-brand-black text-sm placeholder:text-neutral-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-colors"
+                  >
+                </div>
+
+                <!-- Business Name (Required) -->
+                <div>
+                  <label for="contact-business" class="block text-xs font-mono font-bold uppercase tracking-wider text-brand-black mb-2">
+                    Business / Brand Name <span class="text-brand-forest">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="contact-business" 
+                    name="business" 
+                    required
+                    placeholder="e.g. Velvet Lifestyle" 
+                    class="w-full px-4 py-3.5 rounded-xl bg-white border border-brand-border text-brand-black text-sm placeholder:text-neutral-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-colors"
+                  >
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Phone / WhatsApp Number (Required) -->
+                <div>
+                  <label for="contact-phone" class="block text-xs font-mono font-bold uppercase tracking-wider text-brand-black mb-2">
+                    Your WhatsApp / Phone <span class="text-brand-forest">*</span>
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="contact-phone" 
+                    name="phone" 
+                    required 
+                    placeholder="+91 XXXXX XXXXX" 
+                    class="w-full px-4 py-3.5 rounded-xl bg-white border border-brand-border text-brand-black text-sm placeholder:text-neutral-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-colors"
+                  >
+                </div>
+
+                <!-- Service Required Dropdown (Required) -->
+                <div>
+                  <label for="contact-service" class="block text-xs font-mono font-bold uppercase tracking-wider text-brand-black mb-2">
+                    Service Required <span class="text-brand-forest">*</span>
+                  </label>
+                  <select 
+                    id="contact-service" 
+                    name="service" 
+                    required 
+                    class="w-full px-4 py-3.5 rounded-xl bg-white border border-brand-border text-brand-black text-sm focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-colors"
+                  >
+                    <option value="" disabled selected>Select service...</option>
+                    <option value="Website Development">Website Development</option>
+                    <option value="Shopify / E-commerce">Shopify / E-commerce Store</option>
+                    <option value="High-Converting Landing Page">Landing Page Design</option>
+                    <option value="Social Media Creatives & Content">Social Media Content</option>
+                    <option value="Google Business Profile & Maps">Google Business Profile / Maps</option>
+                    <option value="SEO & Organic Reach">SEO Optimization</option>
+                    <option value="Website Maintenance">Website Maintenance</option>
+                    <option value="Other Custom Digital Solution">Other Custom Solution</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Project Details (Required) -->
+              <div>
+                <label for="contact-details" class="block text-xs font-mono font-bold uppercase tracking-wider text-brand-black mb-2">
+                  Project Details <span class="text-brand-forest">*</span>
+                </label>
+                <textarea 
+                  id="contact-details" 
+                  name="details" 
+                  rows="4" 
+                  required 
+                  placeholder="Apne business aur requirements ke bare me batayein (timeline, current status, goals)..." 
+                  class="w-full px-4 py-3.5 rounded-xl bg-white border border-brand-border text-brand-black text-sm placeholder:text-neutral-400 focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-colors resize-y"
+                ></textarea>
+              </div>
+
+              <!-- Submission Feedback Container -->
+              <div id="contact-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+
+              <!-- Submit Button -->
+              <button 
+                type="submit" 
+                id="contact-submit-btn" 
+                class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl bg-brand-black text-white text-sm font-bold hover:bg-neutral-800 transition-all duration-200 active:scale-95 shadow-sm group cursor-pointer"
+              >
+                Send Inquiry to WhatsApp
+                <svg class="w-4 h-4 ml-2 text-brand-lime transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2z"/>
+                </svg>
+              </button>
+
+              <p class="text-xs text-brand-muted">
+                Submitting this form prepares your details and opens your WhatsApp directly to chat with our team at +91 7597402104.
+              </p>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="bg-brand-black text-white pt-16 pb-12 border-t border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-800">
+        
+        <!-- Col 1 & 2: Brand & Mission -->
+        <div class="lg:col-span-2">
+          <a href="#hero" class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center overflow-hidden">
+              <img 
+                src="assets/logo.png" 
+                alt="NS Web & Media Logo" 
+                class="w-full h-full object-cover"
+                onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'font-mono font-black text-brand-lime text-base\'>NS</span>';"
+              >
+            </div>
+            <span class="font-bold text-lg tracking-tight text-white">
+              NS <span class="font-medium text-neutral-400 text-sm">WEB & MEDIA</span>
+            </span>
+          </a>
+          <p class="text-neutral-400 text-sm max-w-sm leading-relaxed mb-6">
+            Website development, social media, Google Business optimization and growth-oriented digital solutions for ambitious brands.
+          </p>
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-neutral-400">
+            <span class="w-2 h-2 rounded-full bg-brand-lime"></span>
+            Digital Growth Agency & Web Studio
+          </div>
+        </div>
+
+        <!-- Col 3: Navigation -->
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold mb-4">Navigation</p>
+          <ul class="space-y-2.5 text-sm text-neutral-300">
+            <li><a href="#hero" class="hover:text-brand-lime transition-colors">Home</a></li>
+            <li><a href="#services" class="hover:text-brand-lime transition-colors">Services</a></li>
+            <li><a href="#work" class="hover:text-brand-lime transition-colors">Work</a></li>
+            <li><button type="button" onclick="openAboutModal()" class="hover:text-brand-lime transition-colors text-left">About Studio</button></li>
+            <li><a href="#contact" class="hover:text-brand-lime transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Services -->
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold mb-4">Services</p>
+          <ul class="space-y-2.5 text-sm text-neutral-300">
+            <li><a href="#services" class="hover:text-brand-lime transition-colors">Website Development</a></li>
+            <li><a href="#services" class="hover:text-brand-lime transition-colors">Shopify & E-commerce</a></li>
+            <li><a href="#services" class="hover:text-brand-lime transition-colors">Social Media Content</a></li>
+            <li><a href="#services" class="hover:text-brand-lime transition-colors">SEO Optimization</a></li>
+            <li><a href="#services" class="hover:text-brand-lime transition-colors">Google Business Profile</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: Social / Direct Contact -->
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold mb-4">Connect</p>
+          <ul class="space-y-2.5 text-sm text-neutral-300">
+            <li>
+              <a href="https://instagram.com/nswebandmedia" target="_blank" rel="noopener noreferrer" class="hover:text-brand-lime transition-colors flex items-center gap-2">
+                <span>Instagram @nswebandmedia</span>
+                <span class="text-xs text-neutral-500 font-mono">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/917597402104" target="_blank" rel="noopener noreferrer" class="hover:text-brand-lime transition-colors flex items-center gap-2">
+                <span>WhatsApp (+91 7597402104)</span>
+                <span class="text-xs text-neutral-500 font-mono">↗</span>
+              </a>
+            </li>
+            <li>
+              <a href="tel:+917597402104" class="hover:text-brand-lime transition-colors flex items-center gap-2">
+                <span>Call Us Direct</span>
+                <span class="text-xs text-neutral-500 font-mono">↗</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
+        <p>© <span id="current-year">2026</span> NS Web & Media. All rights reserved.</p>
+        <p class="text-neutral-400">Digital Growth Agency &bull; Jaipur, India</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       ABOUT STUDIO POPUP MODAL (Tidy, Clean & Accessible)
+       ========================================================================== -->
+  <div 
+    id="about-modal" 
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4 transition-opacity duration-300"
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="about-modal-title"
+  >
+    <div 
+      id="about-modal-dialog" 
+      class="bg-white text-brand-black w-full max-w-2xl rounded-3xl border border-brand-border shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300"
+    >
+      <!-- Modal Header -->
+      <div class="px-6 sm:px-8 py-5 border-b border-brand-border flex items-center justify-between bg-neutral-50/70">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-brand-lime"></span>
+          <span class="text-xs font-mono uppercase tracking-widest text-brand-muted font-bold">Studio Overview</span>
+        </div>
+        <button 
+          type="button" 
+          onclick="closeAboutModal()" 
+          class="p-2 rounded-xl text-neutral-400 hover:text-brand-black hover:bg-neutral-200 transition-colors"
+          aria-label="Close About Modal"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="p-6 sm:p-8 space-y-6">
+        <div>
+          <h3 id="about-modal-title" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-brand-black mb-3">
+            Small studio. Focused work. High-impact results.
+          </h3>
+          <p class="text-brand-muted text-sm sm:text-base leading-relaxed">
+            <strong>NS Web & Media</strong> is a dedicated digital growth agency specializing in high-performance websites, dynamic social media branding, and Google Business Profile local dominance.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-neutral-50 border border-brand-border">
+            <span class="text-xs font-mono font-bold text-lime-700 uppercase">Core Philosophy</span>
+            <p class="text-sm font-semibold text-brand-black mt-1">Direct communication with zero middleman friction.</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-neutral-50 border border-brand-border">
+            <span class="text-xs font-mono font-bold text-lime-700 uppercase">Asset Control</span>
+            <p class="text-sm font-semibold text-brand-black mt-1">100% complete ownership of your code and media files.</p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <a href="https://instagram.com/nswebandmedia" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-brand-black hover:text-lime-700 flex items-center gap-1 transition-colors">
+              <span>Instagram @nswebandmedia</span>
+              <span>↗</span>
+            </a>
+            <span class="text-neutral-300">&bull;</span>
+            <a href="https://wa.me/917597402104" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-brand-black hover:text-lime-700 flex items-center gap-1 transition-colors">
+              <span>WhatsApp +91 7597402104</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <button 
+            type="button" 
+            onclick="closeAboutModal(); window.location.href='#contact';" 
+            class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-black text-white text-xs font-bold hover:bg-neutral-800 transition-colors"
+          >
+            Start a Conversation
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       PORTFOLIO GALLERY POPUP / MODAL (Multi-media, 16:9, accessible)
+       ========================================================================== -->
+  <div 
+    id="gallery-modal" 
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-4 md:p-6 transition-opacity duration-300"
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="modal-project-title"
+  >
+    <div 
+      id="gallery-modal-dialog" 
+      class="bg-brand-black text-white w-full max-w-5xl max-h-[96vh] rounded-3xl border border-neutral-800 shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300"
+    >
+      
+      <!-- Modal Top Bar -->
+      <div class="px-5 sm:px-8 py-4 sm:py-5 border-b border-neutral-800 flex items-center justify-between bg-neutral-950/70">
+        <div class="flex items-center gap-3">
+          <span id="modal-category" class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-brand-lime text-brand-black">Category</span>
+          <span id="modal-client" class="text-xs text-neutral-400 hidden sm:inline-block font-mono">Client Name</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Counter: e.g. "1 / 1" -->
+          <span id="modal-counter" class="text-xs font-mono text-neutral-400 font-semibold">1 / 1</span>
+          
+          <!-- Close button -->
+          <button 
+            id="modal-close-btn" 
+            type="button" 
+            class="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+            aria-label="Close Gallery Modal"
+          >
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Viewer + Description) -->
+      <div class="overflow-y-auto flex-1 p-4 sm:p-8 space-y-6">
+        
+        <!-- Main 16:9 Media Viewer Screen -->
+        <div class="relative w-full aspect-16-9 bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 flex items-center justify-center shadow-inner group">
+          
+          <!-- Container where image, video, or clean neutral placeholder is injected -->
+          <div id="modal-media-stage" class="w-full h-full flex items-center justify-center">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Navigation Prev Button -->
+          <button 
+            id="modal-prev-btn" 
+            type="button" 
+            class="absolute left-3 top-1/2 -translate-y-1/2 p-3 rounded-xl bg-black/60 text-white hover:bg-brand-lime hover:text-brand-black backdrop-blur-sm transition-all shadow-md focus:outline-none"
+            aria-label="Previous Media"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <!-- Navigation Next Button -->
+          <button 
+            id="modal-next-btn" 
+            type="button" 
+            class="absolute right-3 top-1/2 -translate-y-1/2 p-3 rounded-xl bg-black/60 text-white hover:bg-brand-lime hover:text-brand-black backdrop-blur-sm transition-all shadow-md focus:outline-none"
+            aria-label="Next Media"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Thumbnails Strip (if multiple media items exist) -->
+        <div id="modal-thumbnails" class="flex items-center gap-3 overflow-x-auto pb-2">
+          <!-- Thumbnails injected via JS -->
+        </div>
+
+        <!-- Project Meta & Detailed Description -->
+        <div class="border-t border-neutral-800 pt-6">
+          <h3 id="modal-project-title" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">Project Title</h3>
+          <p id="modal-description" class="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-3xl">Project description goes here.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC & PORTFOLIO DATA
+       Clean placeholder setup - Add your image/video path inside src
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       ABOUT MODAL CONTROLLER
+       ========================================================================== */
+    const aboutModal = document.getElementById('about-modal');
+    const aboutDialog = document.getElementById('about-modal-dialog');
+
+    function openAboutModal() {
+      aboutModal.classList.remove('hidden');
+      aboutModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        aboutDialog.classList.remove('scale-95');
+        aboutDialog.classList.add('scale-100');
+      }, 10);
+    }
+
+    function closeAboutModal() {
+      aboutDialog.classList.remove('scale-100');
+      aboutDialog.classList.add('scale-95');
+      setTimeout(() => {
+        aboutModal.classList.add('hidden');
+        aboutModal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }, 150);
+    }
+
+    aboutModal.addEventListener('click', (e) => {
+      if (e.target === aboutModal) closeAboutModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !aboutModal.classList.contains('hidden')) {
+        closeAboutModal();
+      }
+    });
+
+    /* ==========================================================================
+       EDIT PORTFOLIO PROJECTS HERE
+       Media src is kept EMPTY so you can insert your actual files later.
+       The site shows a clean, modern 16:9 placeholder with ZERO broken images.
+       Supports: { type: "image", src: "" } or { type: "video", src: "" }
+       ========================================================================== */
+    const PORTFOLIO_PROJECTS = [
+      {
+        id: 1,
+        title: "Modern Minimalist E-Store",
+        category: "E-commerce",
+        client: "Vela Studio & Living",
+        description: "A streamlined Shopify checkout experience focusing on high-ticket modern furniture, fast navigation, and clean product lookbooks.",
+        media: [
+          { type: "image", src: "file:///C:/Users/navee/Downloads/NS%20Web%20&%20Media/Profile.png" },
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 2,
+        title: "Architectural Studio Portfolio",
+        category: "Websites",
+        client: "Kroma Architects",
+        description: "Editorial web experience built for an architectural firm, highlighting structural photography, blueprints, and project case studies.",
+        media: [
+          { type: "image", src: "" },
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 3,
+        title: "Organic Matcha Brand Launch",
+        category: "Social Media",
+        client: "Mori Tea Co.",
+        description: "Branded social media content suite, carousel templates, and campaign direction that increased organic Instagram engagement by 140%.",
+        media: [
+          { type: "image", src: "" },
+          { type: "video", src: "" }
+        ]
+      },
+      {
+        id: 4,
+        title: "Downtown Dental Clinic Local GBP",
+        category: "Google Business",
+        client: "Apex Dental Center",
+        description: "Complete Google Business Profile overhaul, category hierarchy alignment, review generation system, and local map rank dominance.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 5,
+        title: "SaaS Launch High-Converting Page",
+        category: "Websites",
+        client: "FlowMetrics Cloud",
+        description: "Single-page landing design optimized for developer tool adoption, featuring live code snippets, interactive pricing, and fast signups.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 6,
+        title: "Artisanal Coffee Subscription",
+        category: "E-commerce",
+        client: "Roast & Origin",
+        description: "Subscription e-commerce architecture allowing customers to customize bean grind size, roast preferences, and monthly recurring deliveries.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 7,
+        title: "Creative Identity & Vector Brand Kit",
+        category: "Creative",
+        client: "Echo Sound Lab",
+        description: "Custom digital typography, vector badge set, social assets, and digital guidelines for an independent electronic music label.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 8,
+        title: "Boutique Fitness Studio Visibility",
+        category: "Google Business",
+        client: "Forma Pilates Studio",
+        description: "Local SEO citations, geocoded photography, Google Maps integration, and keyword targeting that drove consistent class bookings.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 9,
+        title: "Artisan Bakery Brand & Social Story",
+        category: "Social Media",
+        client: "Levain & Crust",
+        description: "High-contrast food social creatives, reels strategy, and launch templates celebrating artisanal sourdough baking techniques.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 10,
+        title: "Commercial Law Firm Website",
+        category: "Websites",
+        client: "Vanguard Legal Group",
+        description: "Fast-loading, accessible, and authoritative corporate web presence built to clearly present practice areas and attorney biographies.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 11,
+        title: "Sustainable Apparel Lookbook Store",
+        category: "E-commerce",
+        client: "Aura Clothiers",
+        description: "Clean aesthetic online boutique featuring instant size filtering, sustainability scorecards, and a responsive frictionless checkout.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 12,
+        title: "Luxury Auto Detailing GBP Ranking",
+        category: "Google Business",
+        client: "Monaco Detailing Club",
+        description: "Local search strategy and GBP optimization generating consistent high-ticket detailing appointments directly from mobile maps.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 13,
+        title: "Digital Newsletter & Publication Art",
+        category: "Creative",
+        client: "The Dispatch Journal",
+        description: "Custom editorial layout, typography hierarchy, and email templates for an independent culture and business newsletter.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 14,
+        title: "Urban Specialty Restaurant Web Experience",
+        category: "Websites",
+        client: "Nami Japanese Dining",
+        description: "Immersive mobile-first web menu, online reservation flow, and ambiance presentation tailored for modern dining patrons.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      },
+      {
+        id: 15,
+        title: "Direct-to-Consumer Skincare Brand",
+        category: "Social Media",
+        client: "Botanica Lab",
+        description: "Minimalist skincare creative campaign with educational carousels, customer breakdown graphics, and clean packaging teasers.",
+        media: [
+          { type: "image", src: "" }
+        ]
+      }
+    ];
+
+    /* ==========================================================================
+       HERO BANNER IMAGE SLIDER
+       ========================================================================== */
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const sliderDots = document.querySelectorAll('#slider-dots button');
+    const sliderIndicator = document.getElementById('slider-indicator');
+    const sliderPrevBtn = document.getElementById('slider-prev-btn');
+    const sliderNextBtn = document.getElementById('slider-next-btn');
+
+    let currentSlide = 0;
+    let sliderInterval = null;
+
+    function goToSlide(index) {
+      if (!heroSlides.length) return;
+      heroSlides[currentSlide].classList.remove('opacity-100');
+      heroSlides[currentSlide].classList.add('opacity-0', 'pointer-events-none');
+
+      sliderDots[currentSlide].classList.remove('w-5', 'bg-brand-lime');
+      sliderDots[currentSlide].classList.add('w-2', 'bg-neutral-700');
+
+      currentSlide = (index + heroSlides.length) % heroSlides.length;
+
+      heroSlides[currentSlide].classList.remove('opacity-0', 'pointer-events-none');
+      heroSlides[currentSlide].classList.add('opacity-100');
+
+      sliderDots[currentSlide].classList.remove('w-2', 'bg-neutral-700');
+      sliderDots[currentSlide].classList.add('w-5', 'bg-brand-lime');
+
+      sliderIndicator.textContent = `0${currentSlide + 1} / 0${heroSlides.length}`;
+    }
+
+    function nextSlide() {
+      goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentSlide - 1);
+    }
+
+    if (sliderNextBtn && sliderPrevBtn) {
+      sliderNextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetSliderTimer();
+      });
+      sliderPrevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetSliderTimer();
+      });
+    }
+
+    sliderDots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        goToSlide(idx);
+        resetSliderTimer();
+      });
+    });
+
+    function startSliderTimer() {
+      sliderInterval = setInterval(nextSlide, 5000);
+    }
+
+    function resetSliderTimer() {
+      if (sliderInterval) clearInterval(sliderInterval);
+      startSliderTimer();
+    }
+
+    startSliderTimer();
+
+    /* ==========================================================================
+       PORTFOLIO RENDERER & PLACEHOLDER ENGINE
+       ========================================================================== */
+    const portfolioGrid = document.getElementById('portfolio-grid');
+    let currentCategory = 'all';
+
+    // Generates a clean, modern 16:9 placeholder for empty src files
+    function createPlaceholderHTML(title, category, isVideo = false) {
+      return `
+        <div class="w-full h-full bg-neutral-100 flex flex-col items-center justify-center p-6 text-center select-none relative overflow-hidden group-hover:bg-neutral-50 transition-colors">
+          <!-- Subtle background grid aesthetic -->
+          <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#71717A 1px, transparent 1px); background-size: 16px 16px;"></div>
+          
+          <div class="w-12 h-12 rounded-2xl bg-white border border-brand-border flex items-center justify-center text-brand-black shadow-xs mb-3 group-hover:scale-105 group-hover:border-brand-lime transition-all">
+            ${isVideo ? `
+              <svg class="w-5 h-5 text-brand-black" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            ` : `
+              <svg class="w-5 h-5 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            `}
+          </div>
+
+          <span class="text-xs font-mono uppercase tracking-widest text-brand-muted font-bold">Project Preview</span>
+          <span class="text-xs text-neutral-400 font-mono mt-0.5">16 : 9 High-Res</span>
+
+          <!-- Corner green indicator dot -->
+          <span class="absolute bottom-3 right-3 w-1.5 h-1.5 rounded-full bg-brand-lime"></span>
+        </div>
+      `;
+    }
+
+    // Render portfolio cards to grid
+    function renderPortfolio() {
+      portfolioGrid.innerHTML = '';
+
+      const filtered = PORTFOLIO_PROJECTS.filter(project => {
+        if (currentCategory === 'all') return true;
+        return project.category.toLowerCase() === currentCategory.toLowerCase();
+      });
+
+      filtered.forEach((project, index) => {
+        const firstMedia = project.media && project.media.length > 0 ? project.media[0] : { type: 'image', src: '' };
+        const hasMedia = firstMedia.src && firstMedia.src.trim() !== '';
+
+        const card = document.createElement('div');
+        card.className = 'group cursor-pointer bg-white rounded-3xl border border-brand-border p-3 sm:p-4 hover:border-brand-lime/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `View details for ${project.title}`);
+
+        // Open modal on click or Enter key
+        card.addEventListener('click', () => openGallery(project.id));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openGallery(project.id);
+          }
+        });
+
+        // Card Preview Stage (16:9)
+        let mediaPreviewHtml = '';
+        if (hasMedia) {
+          if (firstMedia.type === 'video') {
+            mediaPreviewHtml = `
+              <video 
+                src="${firstMedia.src}" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                muted 
+                playsinline 
+                preload="metadata"
+              ></video>
+            `;
+          } else {
+            mediaPreviewHtml = `
+              <img 
+                src="${firstMedia.src}" 
+                alt="${project.title} Preview" 
+                loading="lazy" 
+                decoding="async" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                onerror="this.parentElement.innerHTML = createPlaceholderHTML('${project.title}', '${project.category}', false)"
+              >
+            `;
+          }
+        } else {
+          mediaPreviewHtml = createPlaceholderHTML(project.title, project.category, firstMedia.type === 'video');
+        }
+
+        card.innerHTML = `
+          <!-- 16:9 Aspect Ratio Media Container -->
+          <div class="relative w-full aspect-16-9 rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200/80 mb-4">
+            ${mediaPreviewHtml}
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-semibold bg-white/90 text-brand-black backdrop-blur-sm border border-neutral-200 shadow-xs">
+                ${project.category}
+              </span>
+            </div>
+            ${project.media.length > 1 ? `
+              <div class="absolute bottom-3 right-3 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-brand-black/75 text-white backdrop-blur-xs">
+                ${project.media.length} items
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Card Details -->
+          <div class="px-1 pb-1">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="text-base sm:text-lg font-bold tracking-tight text-brand-black group-hover:text-brand-black transition-colors">
+                ${project.title}
+              </h3>
+              <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-brand-black group-hover:bg-brand-lime group-hover:translate-x-0.5 transition-all flex-shrink-0">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </div>
+            </div>
+            <p class="text-xs text-brand-muted mt-1 line-clamp-2">
+              ${project.description}
+            </p>
+          </div>
+        `;
+
+        portfolioGrid.appendChild(card);
+      });
+    }
+
+    // Category Filter Buttons Handler
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('active');
+          b.classList.add('text-brand-muted');
+          b.setAttribute('aria-selected', 'false');
+        });
+
+        btn.classList.add('active');
+        btn.classList.remove('text-brand-muted');
+        btn.setAttribute('aria-selected', 'true');
+
+        currentCategory = btn.getAttribute('data-category');
+        renderPortfolio();
+      });
+    });
+
+    /* ==========================================================================
+       GALLERY LIGHTBOX CONTROLLER
+       ========================================================================== */
+    const galleryModal = document.getElementById('gallery-modal');
+    const modalDialog = document.getElementById('gallery-modal-dialog');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalPrevBtn = document.getElementById('modal-prev-btn');
+    const modalNextBtn = document.getElementById('modal-next-btn');
+    const modalMediaStage = document.getElementById('modal-media-stage');
+    const modalCategory = document.getElementById('modal-category');
+    const modalClient = document.getElementById('modal-client');
+    const modalCounter = document.getElementById('modal-counter');
+    const modalProjectTitle = document.getElementById('modal-project-title');
+    const modalDescription = document.getElementById('modal-description');
+    const modalThumbnails = document.getElementById('modal-thumbnails');
+
+    let activeProject = null;
+    let activeMediaIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function openGallery(projectId) {
+      activeProject = PORTFOLIO_PROJECTS.find(p => p.id === projectId);
+      if (!activeProject) return;
+
+      activeMediaIndex = 0;
+      updateGalleryContent();
+
+      galleryModal.classList.remove('hidden');
+      galleryModal.classList.add('flex');
+      
+      // Animate modal open
+      setTimeout(() => {
+        modalDialog.classList.remove('scale-95');
+        modalDialog.classList.add('scale-100');
+      }, 10);
+
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+
+      // Accessibility focus
+      modalCloseBtn.focus();
+    }
+
+    function closeGallery() {
+      modalDialog.classList.remove('scale-100');
+      modalDialog.classList.add('scale-95');
+
+      setTimeout(() => {
+        galleryModal.classList.add('hidden');
+        galleryModal.classList.remove('flex');
+        document.body.style.overflow = '';
+
+        // Stop any playing video
+        const currentVideo = modalMediaStage.querySelector('video');
+        if (currentVideo) {
+          currentVideo.pause();
+        }
+      }, 150);
+    }
+
+    function updateGalleryContent() {
+      if (!activeProject) return;
+
+      const mediaList = activeProject.media || [];
+      const currentMedia = mediaList[activeMediaIndex] || { type: 'image', src: '' };
+      const hasMedia = currentMedia.src && currentMedia.src.trim() !== '';
+
+      modalProjectTitle.textContent = activeProject.title;
+      modalCategory.textContent = activeProject.category;
+      modalClient.textContent = activeProject.client ? `Client: ${activeProject.client}` : '';
+      modalDescription.textContent = activeProject.description;
+      modalCounter.textContent = `${activeMediaIndex + 1} / ${mediaList.length}`;
+
+      // Update Main 16:9 Viewer
+      modalMediaStage.innerHTML = '';
+      if (hasMedia) {
+        if (currentMedia.type === 'video') {
+          const video = document.createElement('video');
+          video.src = currentMedia.src;
+          video.controls = true;
+          video.className = 'w-full h-full object-contain';
+          video.preload = 'metadata';
+          modalMediaStage.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.src = currentMedia.src;
+          img.alt = `${activeProject.title} media ${activeMediaIndex + 1}`;
+          img.className = 'w-full h-full object-contain';
+          img.onerror = () => {
+            modalMediaStage.innerHTML = createPlaceholderHTML(activeProject.title, activeProject.category, false);
+          };
+          modalMediaStage.appendChild(img);
+        }
+      } else {
+        // Clean neutral placeholder for empty source
+        modalMediaStage.innerHTML = createPlaceholderHTML(activeProject.title, activeProject.category, currentMedia.type === 'video');
+      }
+
+      // Render Thumbnails
+      modalThumbnails.innerHTML = '';
+      if (mediaList.length > 1) {
+        modalThumbnails.classList.remove('hidden');
+        mediaList.forEach((item, idx) => {
+          const thumb = document.createElement('button');
+          thumb.className = `w-16 h-10 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 bg-neutral-900 flex items-center justify-center ${
+            idx === activeMediaIndex ? 'border-brand-lime scale-105' : 'border-neutral-700 opacity-60 hover:opacity-100'
+          }`;
+          thumb.setAttribute('aria-label', `Thumbnail ${idx + 1}`);
+
+          if (item.src && item.src.trim() !== '') {
+            if (item.type === 'video') {
+              thumb.innerHTML = `<span class="text-[10px] font-mono text-brand-lime">VID ${idx + 1}</span>`;
+            } else {
+              thumb.innerHTML = `<img src="${item.src}" class="w-full h-full object-cover">`;
+            }
+          } else {
+            thumb.innerHTML = `<span class="text-[10px] font-mono text-neutral-300">#${idx + 1}</span>`;
+          }
+
+          thumb.addEventListener('click', () => {
+            activeMediaIndex = idx;
+            updateGalleryContent();
+          });
+          modalThumbnails.appendChild(thumb);
+        });
+      } else {
+        modalThumbnails.classList.add('hidden');
+      }
+    }
+
+    function prevMedia() {
+      if (!activeProject) return;
+      const total = activeProject.media.length;
+      activeMediaIndex = (activeMediaIndex - 1 + total) % total;
+      updateGalleryContent();
+    }
+
+    function nextMedia() {
+      if (!activeProject) return;
+      const total = activeProject.media.length;
+      activeMediaIndex = (activeMediaIndex + 1) % total;
+      updateGalleryContent();
+    }
+
+    // Modal Events
+    modalCloseBtn.addEventListener('click', closeGallery);
+    modalPrevBtn.addEventListener('click', prevMedia);
+    modalNextBtn.addEventListener('click', nextMedia);
+
+    // Close on backdrop click
+    galleryModal.addEventListener('click', (e) => {
+      if (e.target === galleryModal) {
+        closeGallery();
+      }
+    });
+
+    // Keyboard navigation (Esc, Arrow Left, Arrow Right)
+    document.addEventListener('keydown', (e) => {
+      if (!galleryModal.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeGallery();
+        if (e.key === 'ArrowLeft') prevMedia();
+        if (e.key === 'ArrowRight') nextMedia();
+      }
+    });
+
+    // Touch Swipe handling on mobile
+    galleryModal.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    galleryModal.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance > 0) {
+          prevMedia(); // Swiped right
+        } else {
+          nextMedia(); // Swiped left
+        }
+      }
+    }
+
+    /* ==========================================================================
+       NAVIGATION & SCROLL EFFECTS
+       ========================================================================== */
+    const siteHeader = document.getElementById('site-header');
+    const navContainer = document.getElementById('nav-container');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    // Sticky glass header on scroll - adds elevation shadow without duplicate borders
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        siteHeader.classList.add('shadow-sm');
+      } else {
+        siteHeader.classList.remove('shadow-sm');
+      }
+    }, { passive: true });
+
+    // Active Navigation Highlight & Smooth Scrollspy
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    function updateActiveNav() {
+      const scrollY = window.pageYOffset + 120;
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${sectionId}`) {
+              item.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+    // Click handler for instant active feedback
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    // Mobile Hamburger Toggle
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      
+      mobileMenu.classList.toggle('hidden');
+      hamburgerIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ==========================================================================
+       LIGHTWEIGHT SCROLL REVEAL ANIMATIONS (IntersectionObserver)
+       ========================================================================== */
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersectObserver ? entry.isIntersecting : entry.intersectionRatio > 0.1) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    /* ==========================================================================
+       CONTACT FORM -> WHATSAPP INTEGRATION HANDLER
+       Direct DOM event listener with fail-safe values & multi-device WhatsApp trigger
+       ========================================================================== */
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const feedback = document.getElementById('contact-feedback');
+        const submitBtn = document.getElementById('contact-submit-btn');
+
+        const nameInput = document.getElementById('contact-name');
+        const businessInput = document.getElementById('contact-business');
+        const phoneInput = document.getElementById('contact-phone');
+        const serviceInput = document.getElementById('contact-service');
+        const detailsInput = document.getElementById('contact-details');
+
+        const name = nameInput ? nameInput.value.trim() : '';
+        const business = businessInput ? businessInput.value.trim() : '';
+        const phone = phoneInput ? phoneInput.value.trim() : '';
+        const service = serviceInput ? serviceInput.value : '';
+        const details = detailsInput ? detailsInput.value.trim() : '';
+
+        // Validate all required inputs
+        if (!name || !business || !phone || !service || !details) {
+          feedback.className = 'p-4 rounded-xl text-sm font-medium bg-red-50 text-red-700 border border-red-200 block';
+          feedback.textContent = 'Please fill out all required fields before sending.';
+          return;
+        }
+
+        // Build cleanly formatted WhatsApp message
+        const rawMessage = 
+`*New Inquiry for NS Web & Media*
+
+👤 *Client Name:* ${name}
+🏢 *Business / Brand:* ${business}
+📱 *Phone / WhatsApp:* ${phone}
+⚡ *Service Required:* ${service}
+📝 *Project Details:*
+${details}
+
+_Sent via NS Web & Media Website Form_`;
+
+        const encodedMessage = encodeURIComponent(rawMessage);
+        const targetWhatsAppNumber = "917597402104";
+        const waUrl = `https://api.whatsapp.com/send?phone=${targetWhatsAppNumber}&text=${encodedMessage}`;
+
+        // Feedback state
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75');
+        submitBtn.innerHTML = `Redirecting to WhatsApp... <span class="ml-2 animate-spin">●</span>`;
+
+        feedback.className = 'p-4 rounded-xl text-sm font-medium bg-lime-50 text-brand-forest border border-lime-300 block';
+        feedback.innerHTML = `<strong>Redirecting...</strong> Opening WhatsApp with your project specifications.`;
+
+        // Direct redirection that works reliably across browsers & mobile apps
+        setTimeout(() => {
+          window.location.href = waUrl;
+          contactForm.reset();
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-75');
+          submitBtn.innerHTML = `Send Inquiry to WhatsApp <span class="ml-2 text-brand-lime">✓</span>`;
+        }, 500);
+      });
+    }
+
+  // Set Dynamic Year
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+
+  // Initial Portfolio Render
+  renderPortfolio();
+</script>
+</body>
+</html>
